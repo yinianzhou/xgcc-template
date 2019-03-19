@@ -47,21 +47,15 @@ define([
 
         // 初始化显示和查询参数
         initParams() {
-            this._initParams = {
-                
-            };
+            this._initParams = {};
             this.showParams = this.cacheParams.getParams() || angular.copy(this._initParams);
             this.params = this.cacheParams.getParams() || angular.copy(this.showParams);
-
-            // 获取包装物类目
-            this.changeSkuType();
         }
 
         // 封装查询参数
         getListParams() {
             let listParams = {};
             const { pageNo, pageSize } = this.pages;
-
             return { pageNo, pageSize, ...listParams };
         }
 
