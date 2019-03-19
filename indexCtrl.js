@@ -3,7 +3,7 @@
  * @author zhouyinian (zhouyinian@meituan.com)
  * @description {{chineseName}}controller
  * @ngdoc controller
- * @name  SpuManageCtrl
+ * @name  {{componentName}}Ctrl
  */
 
 define([
@@ -96,7 +96,7 @@ define([
 
     }
 
-    app.controller(componentName, Ctrl);
+    app.controller({{componentName}}Ctrl, Ctrl);
 
     return {
         _tpl: __inline('./template.html')

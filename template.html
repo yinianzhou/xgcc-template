@@ -12,9 +12,9 @@
                     <div class="form-group col-sm-3">
                         <label>labelName</label>
                         <uix-select ng-model="vm.showParams.xxx">
-                            <uix-select-match>{{$select.selected.name}}</uix-select-match>
+                            <uix-select-match>{{{$select.selected.name}}}</uix-select-match>
                             <uix-select-choices repeat="item in vm.xxxList | filter:$select.search">
-                                <span>{{item.name}}</span>
+                                <span>{{{item.name}}}</span>
                             </uix-select-choices>
                         </uix-select>
                     </div>
@@ -53,35 +53,35 @@
                         <tbody>
                             <tr ng-repeat-start="spu in vm.list">
                                 <td class="uix-table-nowrap">
-                                    <img class="inline v-top" width="60" height="60" ng-if="spu.spu.picUrls" ng-src="{{spu.spu.picUrls.split(',')[0] | webp:'60w_60h_1e_1c'}}">
+                                    <img class="inline v-top" width="60" height="60" ng-if="spu.spuDetail.picUrls" ng-src="{{{spu.spuDetail.picUrls.split(',')[0] | webp:'60w_60h_1e_1c'}}}">
                                     <div class="inline">
-                                        <div>【{{spu.spu.brand}}】 {{spu.spu.name}}</div>
-                                        <p>{{spu.spu.cat1.name}}/{{spu.spu.cat2.name}}/{{spu.spu.cat3.name}}</p>
-                                        <div ng-if="spu.spu.unifyType === 'RepeatCommodity'" class="label label-info">已有事业部被标记为重复品</div>
-                                        <div ng-if="spu.spu.unifyType === 'StandardCommodity'" class="label label-info">标准品</div>
+                                        <div>【{{{spu.spuDetail.brand}}}】 {{{spu.spuDetail.name}}}</div>
+                                        <p>{{spu.spuDetail.cat1.name}}/{{spu.spuDetail.cat2.name}}/{{spu.spuDetail.cat3.name}}</p>
+                                        <div ng-if="spu.spuDetail.unifyType === 'RepeatCommodity'" class="label label-info">已有事业部被标记为重复品</div>
+                                        <div ng-if="spu.spuDetail.unifyType === 'StandardCommodity'" class="label label-info">标准品</div>
                                     </div>
                                 </td>
-                                <td>{{spu.spuCode}}</td>
-                                <td>{{spu.skuList[0]?spu.skuList[0].skuTypeDesc:''}}</td>
+                                <td>{{{spu.spuCode}}}</td>
+                                <td>{{{spu.skuList[0]?spu.skuList[0].skuTypeDesc:''}}}</td>
                                 <td class="uix-table-nowrap">
                                     <div ng-repeat="sku in spu.skuList">
-                                        {{spu.spuType ==='WRAPPAGE' ? sku.skuUnit : (sku.skuCode +' '+ sku.skuUnit +':'+ sku.skuUnitDesc)}}
+                                        {{{ sku.skuCode +' '+ sku.skuUnit +':'+ sku.skuUnitDesc}}}
                                     </div>
                                 </td>
-                                <td class="uix-table-nowrap">{{spu.spu.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}</td>
+                                <td class="uix-table-nowrap">{{{spu.spuDetail.createTime | date: 'yyyy-MM-dd HH:mm:ss'}}}</td>
                                 <td>
                                     <span ng-if="spu.buNameList && spu.buNameList.length<=6">
-                                        {{spu.buNameList.join('、')}}
+                                        {{{spu.buNameList.join('、')}}}
                                     </span>
                                     <span ng-if="spu.buNameList && spu.buNameList.length>6">
-                                        {{spu.buNameList.slice(0,6).join('、')}}
+                                        {{{spu.buNameList.slice(0,6).join('、')}}}
                                         <a href="javascript:void(0)" class="text-info" ng-click="spu.isCollapsed = !spu.isCollapsed">
                                             <span>显示更多</span>
                                             <i class="glyphicon" ng-class="{'glyphicon-plus': !spu.isCollapsed, 'glyphicon-minus': spu.isCollapsed}"></i>
                                         </a>
                                     </span>
                                 </td>
-                                <td class="uix-table-nowrap" ng-if="spu.spu.spuType==='NORMAL'">
+                                <td class="uix-table-nowrap" >
                                     <button type="button" class="btn btn-sm btn-default" title="查看" ui-sref="app.goods.spuManage.edit({spuCode: spu.spuCode,read:true})">
                                         <i class="fa fa-eye"></i>
                                     </button>
@@ -92,18 +92,10 @@
                                         <i class="fa fa-trash-o"></i>
                                     </button>
                                 </td>
-                                <td class="uix-table-nowrap" ng-if="spu.spu.spuType==='WRAPPAGE'">
-                                    <button type="button" class="btn btn-sm btn-default" title="查看" ui-sref="app.goods.spuManage.editWrap({spuId: spu.spuCode,action:'READ',from:'SPU'})">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default" title="编辑" ng-click="vm.editGoods(spu.spuCode,'WRAPPER')">
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                </td>
                             </tr>
                             <tr ng-repeat-end ng-if="spu.isCollapsed">
                                 <td colspan="9" class="wrapper">
-                                    {{spu.buNameList.join('、 ')}}
+                                    {{{spu.buNameList.join('、 ')}}}
                                 </td>
                             </tr>
                         </tbody>
