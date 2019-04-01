@@ -8,7 +8,7 @@
 
 define(['app'], function (app) {
 
-    app.factory('{{componentName}}Services', service);
+    app.factory('{{componentName}}Service', service);
 
     service.$inject = ['$http'];
 

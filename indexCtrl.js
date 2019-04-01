@@ -90,7 +90,7 @@ define([
 
     }
 
-    app.controller({{componentName}}Ctrl, Ctrl);
+    app.controller('{{componentName}}Ctrl', Ctrl);
 
     return {
         _tpl: __inline('./template.html')
