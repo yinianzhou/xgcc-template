@@ -2,14 +2,14 @@
  * @file indexCtrl.js
  * @author zhouyinian (zhouyinian@meituan.com)
  * @description {{chineseName}}
- * @name  {{componentName}}Ctrl
+ * @name  {{modelName}}Ctrl
  */
 
 define([
     'app'
 ], function (app) {
   
-    class {{componentName}}Ctrl {
+    class {{modelName}}Ctrl {
         static $inject = ['$uixNotify', 'parent', '$uixModalInstance'];
         constructor($uixNotify, parent, $uixModalInstance) {
 
@@ -47,6 +47,6 @@ define([
     return {
         template: __inline('./template.html'),
         controllerAs: 'vm',
-        controller: {{componentName}}Ctrl
+        controller: {{modelName}}Ctrl
     };
 });
