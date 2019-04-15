@@ -1,85 +1,15 @@
-<div ng-controller="{{componentName}}Ctrl as vm">
-    <uix-page-title page-title="'{{chineseName}}'"></uix-page-title>
-    <div class="wrapper-md">
-        <div class="panel panel-default">
-            <form class="panel-body">
-                <div class="row">
-                    <div class="form-group col-md-3">
-                        <label>labelName</label>
-                        <input type="text" ng-model="vm.showParams.xxx" class="form-control input-sm">
-                    </div>
-
-                    <div class="form-group col-sm-3">
-                        <label>labelName</label>
-                        <uix-select ng-model="vm.showParams.xxx">
-                            <uix-select-match>{{$select.selected.name}}</uix-select-match>
-                            <uix-select-choices repeat="item in vm.xxxList | filter:$select.search">
-                                <span>{{item.name}}</span>
-                            </uix-select-choices>
-                        </uix-select>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <button type="button" class="btn btn-sm w-sm btn-default btn-primary" ng-click="vm.search()">
-                        查询
-                    </button>
-                    <button type="button" class="m-l-md btn btn-sm w-sm btn-default" ng-click="vm.reset()">
-                        重置
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        <div class="panel panel-default m-t-n-sm">
-            <div class="panel-heading">
-                <button class="btn btn-sm btn-default btn-addon" type="button">
-                    <i class="fa fa-download"></i>按钮1
-                </button>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive table-scroll">
-                    <table class="table table-striped b-t b-light m-b-none uix-table" uix-table-loader="vm.tableLoader">
-                        <thead>
-                            <tr>
-                                <th>A</th>
-                                <th>B</th>
-                                <th>C</th>
-                                <th>D</th>
-                                <th>E</th>
-                                <th>F</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in vm.list">
-                                <td class="uix-table-nowrap">
-                                    A
-                                </td>
-                                <td>B</td>
-                                <td>C</td>
-                                <td>D</td>
-                                <td>E</td>
-                                <td>F</td>
-                                <td class="uix-table-nowrap" >
-                                    <button type="button" class="btn btn-sm btn-default" title="查看">
-                                        <i class="fa fa-eye"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default" title="编辑" >
-                                        <i class="fa fa-edit"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-default" title="废弃">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="panel-footer clearfix" ng-if="vm.tableLoader === 0">
-                <uix-pager class="pull-right pagination-sm" ng-model="vm.pages.pageNo" items-per-page="vm.pages.pageSize" ng-change="vm.getList()"
-                    total-items="vm.pages.totalCount"></uix-pager>
-            </div>
-        </div>
+<div class="modal-header">
+    <h4 class="modal-title">新增客户</h4>
+</div>
+<div class="modal-body wrapper-md">
+    <div class="row">
+        <label class="col-md-3">label:</label>
+        <p class="col-md-6">
+            <input type="text" class="form-control input-sm">
+        </p>
     </div>
+</div>
+<div class="modal-footer">
+    <button type="button" ng-click="vm.ok()" class="btn btn-primary btn-sm" uix-btn-loader="vm.submitFlag" ng-disabled="vm.submitFlag">确定</button>
+    <button type="button" ng-click="vm.cancel()" class="btn btn-default btn-sm">取消</button>
 </div>

@@ -1,98 +1,52 @@
 /**
  * @file indexCtrl.js
  * @author zhouyinian (zhouyinian@meituan.com)
- * @description {{chineseName}}controller
- * @ngdoc controller
+ * @description {{chineseName}}
  * @name  {{componentName}}Ctrl
  */
 
 define([
-    'app',
-    './service'
+    'app'
 ], function (app) {
-    const DEFAULT_VAL = { name: '全部' };
-    class Ctrl {
-        static $inject = [
-            'Page',
-            '{{componentName}}Service',
-            '$stateParams',
-            'dateFilter',
-            'cacheParams',
-            '$uixModal',
-            '$state'
-        ];
-        constructor(...args) {
-            let [Page,{{componentName}}Service,$stateParams,dateFilter,cacheParams,$uixModal,$state] = args;
-            this.Page = Page;
-            this.service = {{componentName}}Service;
-            this.$stateParams = $stateParams;
-            this.dateFilter = dateFilter;
-            this.cacheParams = cacheParams;
-            this.$uixModal = $uixModal;
-            this.$state = $state;
-            this.dateFormat = 'yyyy-MM-dd';
-            this.pages = {
-                pageNo: 1,
-                pageSize: 20,
-                totalCount: 0,
-                totalPageCount: 1
+  
+    class {{componentName}}Ctrl {
+        static $inject = ['$uixNotify', 'parent', '$uixModalInstance'];
+        constructor($uixNotify, parent, $uixModalInstance) {
+
+            this.$uixNotify = $uixNotify;
+            this.$uixModalInstance = $uixModalInstance;
+            this.parent = parent;
+        }
+
+
+        // 取消
+        cancel() {
+            this.$uixModalInstance.dismiss('cancel');
+        }
+
+        ok() {
+            this.submitFlag = true;
+            const params = {
+               
             };
-            
-            this.list = [];
-            Page.setTitle('{{chineseName}}');
-            this.initParams();
-            this.getList();
-        }
-
-
-        // 初始化显示和查询参数
-        initParams() {
-            this._initParams = {};
-            this.showParams = this.cacheParams.getParams() || angular.copy(this._initParams);
-            this.params = this.cacheParams.getParams() || angular.copy(this.showParams);
-        }
-
-        // 封装查询参数
-        getListParams() {
-            let listParams = {};
-            const { pageNo, pageSize } = this.pages;
-            return { pageNo, pageSize, ...listParams };
-        }
-
-        //获取列表
-        getList() {
-            this.tableLoader = 1;
-            this.service.getList(this.getListParams()).then(({ data: { data, code } }) => {
-                if (code === 200) {
-                    this.list = data.pageContent;
-                    this.tableLoader = this.list.length ? 0 : 2;
-                    this.pages.totalCount = data.page.totalCount;
-                } else {
-                    this.tableLoader = -1;
+            this.parent.service.xxx(params).then(({ data: { status } }) => {
+                if (status === 1) {
+                    this.$uixNotify.success('lalal');
+                    this.$uixModalInstance.dismiss('ok');
+                    this.parent.getList();
                 }
-            }, () => {
-                this.tableLoader = -1;
-            });
+                else {
+                    this.submitFlag = false;
+                }
+            }, () => this.submitFlag = false);
         }
 
-        // 搜索
-        search() {
-            this.pages.pageNo = 1;
-            this.pages.totalCount = 0;
-            this.params = angular.copy(this.showParams);
-            this.getList();
-        }
-
-        // 重置
-        reset() {
-            this.showParams = angular.copy(this._initParams);
-        }
-
+        
     }
 
-    app.controller('{{componentName}}Ctrl', Ctrl);
-
     return {
-        _tpl: __inline('./template.html')
+        template: __inline('./template.html'),
+        controllerAs: 'vm',
+        controller: {{componentName}}Ctrl
     };
 });
