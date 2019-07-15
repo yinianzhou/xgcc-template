@@ -12,11 +12,22 @@
                     <div class="form-group col-sm-3">
                         <label>labelName</label>
                         <uix-select ng-model="vm.showParams.xxx">
-                            <uix-select-match>{{$select.selected.name}}</uix-select-match>
+                            <uix-select-match>\{{$select.selected.name}}</uix-select-match>
                             <uix-select-choices repeat="item in vm.xxxList | filter:$select.search">
-                                <span>{{item.name}}</span>
+                                <span>\{{item.name}}</span>
                             </uix-select-choices>
                         </uix-select>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>时间</label>
+                        <div class="row">
+                            <span class="break">--</span>
+                            <uix-datepicker class="col-md-6" max-date="vm.now" ng-model="vm.showParams.beginTime" show-time="false" size="sm"
+                                format="vm.dateFormat"></uix-datepicker>
+                            <uix-datepicker class="col-md-6" max-date="vm.now" min-date="vm.showParams.beginTime" ng-model="vm.showParams.endTime"
+                                show-time="false" size="sm" format="vm.dateFormat"></uix-datepicker>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center">
@@ -60,11 +71,11 @@
                                 <td>D</td>
                                 <td>E</td>
                                 <td>F</td>
-                                <td class="uix-table-nowrap" >
+                                <td class="uix-table-nowrap">
                                     <button type="button" class="btn btn-sm btn-default" title="查看">
                                         <i class="fa fa-eye"></i>
                                     </button>
-                                    <button type="button" class="btn btn-sm btn-default" title="编辑" >
+                                    <button type="button" class="btn btn-sm btn-default" title="编辑">
                                         <i class="fa fa-edit"></i>
                                     </button>
                                     <button type="button" class="btn btn-sm btn-default" title="废弃">
