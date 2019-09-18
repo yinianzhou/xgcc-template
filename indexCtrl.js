@@ -10,84 +10,62 @@ define([
     'app',
     './service'
 ], function (app) {
-    const DEFAULT_VAL = { name: '全部' };
     class Ctrl {
         static $inject = [
             'Page',
             '{{componentName}}Service',
             '$stateParams',
-            'dateFilter',
-            'cacheParams',
             '$uixModal',
-            '$state'
+            '$state',
+            '$uixNotify'
         ];
         constructor(...args) {
-            let [Page,{{componentName}}Service,$stateParams,dateFilter,cacheParams,$uixModal,$state] = args;
+            let [Page,{{componentName}}Service,$stateParams,$uixModal,$state,$uixNotify] = args;
             this.Page = Page;
             this.service = {{componentName}}Service;
             this.$stateParams = $stateParams;
-            this.dateFilter = dateFilter;
-            this.cacheParams = cacheParams;
             this.$uixModal = $uixModal;
+            this.$uixNotify = $uixNotify;
             this.$state = $state;
-            this.dateFormat = 'yyyy-MM-dd';
-            this.pages = {
-                pageNo: 1,
-                pageSize: 20,
-                totalCount: 0,
-                totalPageCount: 1
-            };
             
-            this.list = [];
+            this.detail = {};
             Page.setTitle('{{chineseName}}');
-            this.initParams();
-            this.getList();
+            this.getDetail();
         }
 
 
-        // 初始化显示和查询参数
-        initParams() {
-            this._initParams = {};
-            this.showParams = this.cacheParams.getParams() || angular.copy(this._initParams);
-            this.params = this.cacheParams.getParams() || angular.copy(this.showParams);
-        }
-
-        // 封装查询参数
-        getListParams() {
-            let listParams = {};
-            const { pageNo, pageSize } = this.pages;
-            return { pageNo, pageSize, ...listParams };
-        }
-
-        //获取列表
-        getList() {
-            this.tableLoader = 1;
-            this.service.getList(this.getListParams()).then(({ data: { data, code } }) => {
+        // 获取详情
+        getDetail() {
+            const params = {
+                id: this.$stateParams.id
+            };
+            this.service.getDetail(params).then(({ data: { data, code } }) => {
                 if (code === 200) {
-                    this.list = data.pageContent;
-                    this.tableLoader = this.list.length ? 0 : 2;
-                    this.pages.totalCount = data.page.totalCount;
-                } else {
-                    this.tableLoader = -1;
+                    this.detail = data;
                 }
-            }, () => {
-                this.tableLoader = -1;
             });
         }
 
-        // 搜索
-        search() {
-            this.pages.pageNo = 1;
-            this.pages.totalCount = 0;
-            this.params = angular.copy(this.showParams);
-            this.getList();
+        save() {
+            if (this.submitFlag) {
+                return;
+            }
+            this.submitFlag = true;
+            const params = {};
+            this.service.save(params).then(({ data: { data, code, message } })=>{
+                if(code === 200){
+                    this.$state.go('^');
+                    this.$uixNotify.success(message);
+                } else {
+                    this.submitFlag = false;
+                }
+            }, () => { this.submitFlag = false; });
         }
 
-        // 重置
-        reset() {
-            this.showParams = angular.copy(this._initParams);
+        // 取消
+        cancel() {
+            this.$state.go('^');
         }
-
     }
 
     app.controller('{{componentName}}Ctrl', Ctrl);

@@ -12,8 +12,8 @@ define(['app'], function (app) {
 
     service.$inject = ['$http'];
 
-    // 获取列表
-    const getList = params => service.$http({
+    // 获取详情
+    const getDetail = params => service.$http({
         method: 'get',
         url: basePath + '',
         params
@@ -22,7 +22,7 @@ define(['app'], function (app) {
     function service($http) {
         service.$http = $http;
         return {
-            getList
+            getDetail
         };
     }
 });
