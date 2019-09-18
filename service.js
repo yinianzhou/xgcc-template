@@ -3,12 +3,12 @@
  * @author zhouyinian (zhouyinian@meituan.com)
  * @description {{chineseName}}
  * @ngdoc service
- * @name {{componentName}}Services
+ * @name {{detailName}}Services
  */
 
 define(['app'], function (app) {
 
-    app.factory('{{componentName}}Service', service);
+    app.factory('{{detailName}}Service', service);
 
     service.$inject = ['$http'];
 

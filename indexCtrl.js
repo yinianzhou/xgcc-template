@@ -3,7 +3,7 @@
  * @author zhouyinian (zhouyinian@meituan.com)
  * @description {{chineseName}}controller
  * @ngdoc controller
- * @name  {{componentName}}Ctrl
+ * @name  {{detailName}}Ctrl
  */
 
 define([
@@ -13,16 +13,16 @@ define([
     class Ctrl {
         static $inject = [
             'Page',
-            '{{componentName}}Service',
+            '{{detailName}}Service',
             '$stateParams',
             '$uixModal',
             '$state',
             '$uixNotify'
         ];
         constructor(...args) {
-            let [Page,{{componentName}}Service,$stateParams,$uixModal,$state,$uixNotify] = args;
+            let [Page,{{detailName}}Service,$stateParams,$uixModal,$state,$uixNotify] = args;
             this.Page = Page;
-            this.service = {{componentName}}Service;
+            this.service = {{detailName}}Service;
             this.$stateParams = $stateParams;
             this.$uixModal = $uixModal;
             this.$uixNotify = $uixNotify;
@@ -68,7 +68,7 @@ define([
         }
     }
 
-    app.controller('{{componentName}}Ctrl', Ctrl);
+    app.controller('{{detailName}}Ctrl', Ctrl);
 
     return {
         _tpl: __inline('./template.html')
